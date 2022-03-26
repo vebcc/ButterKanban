@@ -24,7 +24,7 @@ class Task
     #[ORM\Column(type: 'datetime')]
     private $startData;
 
-    #[ORM\ManyToOne(targetEntity: taskGroup::class, inversedBy: 'tasks')]
+    #[ORM\ManyToOne(targetEntity: TaskGroup::class, inversedBy: 'tasks')]
     #[ORM\JoinColumn(nullable: false)]
     private $taskGroup;
 
@@ -81,12 +81,12 @@ class Task
         return $this;
     }
 
-    public function getTaskGroup(): ?taskGroup
+    public function getTaskGroup(): ?TaskGroup
     {
         return $this->taskGroup;
     }
 
-    public function setTaskGroup(?taskGroup $taskGroup): self
+    public function setTaskGroup(?TaskGroup $taskGroup): self
     {
         $this->taskGroup = $taskGroup;
 

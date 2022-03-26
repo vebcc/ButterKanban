@@ -22,11 +22,11 @@ class TaskComment
     #[ORM\Column(type: 'smallint')]
     private $type;
 
-    #[ORM\ManyToOne(targetEntity: task::class, inversedBy: 'taskComments')]
+    #[ORM\ManyToOne(targetEntity: Task::class, inversedBy: 'taskComments')]
     #[ORM\JoinColumn(nullable: false)]
     private $task;
 
-    #[ORM\ManyToOne(targetEntity: user::class, inversedBy: 'taskComments')]
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'taskComments')]
     #[ORM\JoinColumn(nullable: false)]
     private $user;
 
@@ -71,24 +71,24 @@ class TaskComment
         return $this;
     }
 
-    public function getTask(): ?task
+    public function getTask(): ?Task
     {
         return $this->task;
     }
 
-    public function setTask(?task $task): self
+    public function setTask(?Task $task): self
     {
         $this->task = $task;
 
         return $this;
     }
 
-    public function getUser(): ?user
+    public function getUser(): ?User
     {
         return $this->user;
     }
 
-    public function setUser(?user $user): self
+    public function setUser(?User $user): self
     {
         $this->user = $user;
 

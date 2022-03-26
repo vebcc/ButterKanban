@@ -18,7 +18,7 @@ class UserGroup
     #[ORM\Column(type: 'string', length: 100)]
     private $name;
 
-    #[ORM\OneToMany(mappedBy: 'userGroup', targetEntity: user::class)]
+    #[ORM\OneToMany(mappedBy: 'userGroup', targetEntity: User::class)]
     private $user;
 
     public function __construct()
@@ -44,14 +44,14 @@ class UserGroup
     }
 
     /**
-     * @return Collection<int, user>
+     * @return Collection<int, User>
      */
     public function getUser(): Collection
     {
         return $this->user;
     }
 
-    public function addUser(user $user): self
+    public function addUser(User $user): self
     {
         if (!$this->user->contains($user)) {
             $this->user[] = $user;
@@ -61,7 +61,7 @@ class UserGroup
         return $this;
     }
 
-    public function removeUser(user $user): self
+    public function removeUser(User $user): self
     {
         if ($this->user->removeElement($user)) {
             // set the owning side to null (unless already changed)

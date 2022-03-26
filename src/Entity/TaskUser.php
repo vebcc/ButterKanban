@@ -15,13 +15,13 @@ class TaskUser
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\ManyToOne(targetEntity: task::class, inversedBy: 'taskUsers')]
+    #[ORM\ManyToOne(targetEntity: Task::class, inversedBy: 'taskUsers')]
     private $task;
 
-    #[ORM\OneToMany(mappedBy: 'taskUser', targetEntity: taskUserType::class)]
+    #[ORM\OneToMany(mappedBy: 'taskUser', targetEntity: TaskUserType::class)]
     private $userType;
 
-    #[ORM\ManyToOne(targetEntity: user::class, inversedBy: 'taskUsers')]
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'taskUsers')]
     #[ORM\JoinColumn(nullable: false)]
     private $user;
 
@@ -35,12 +35,12 @@ class TaskUser
         return $this->id;
     }
 
-    public function getTask(): ?task
+    public function getTask(): ?Task
     {
         return $this->task;
     }
 
-    public function setTask(?task $task): self
+    public function setTask(?Task $task): self
     {
         $this->task = $task;
 
@@ -48,14 +48,14 @@ class TaskUser
     }
 
     /**
-     * @return Collection<int, taskUserType>
+     * @return Collection<int, TaskUserType>
      */
     public function getUserType(): Collection
     {
         return $this->userType;
     }
 
-    public function addUserType(taskUserType $userType): self
+    public function addUserType(TaskUserType $userType): self
     {
         if (!$this->userType->contains($userType)) {
             $this->userType[] = $userType;
@@ -65,7 +65,7 @@ class TaskUser
         return $this;
     }
 
-    public function removeUserType(taskUserType $userType): self
+    public function removeUserType(TaskUserType $userType): self
     {
         if ($this->userType->removeElement($userType)) {
             // set the owning side to null (unless already changed)
@@ -77,12 +77,12 @@ class TaskUser
         return $this;
     }
 
-    public function getUser(): ?user
+    public function getUser(): ?User
     {
         return $this->user;
     }
 
-    public function setUser(?user $user): self
+    public function setUser(?User $user): self
     {
         $this->user = $user;
 
