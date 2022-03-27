@@ -1,13 +1,29 @@
+
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit User{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/form/IngredientForm.js') }}"></script>
+{% endblock %}
+
+{% block title %}Użytkownicy{% endblock %}
 
 {% block body %}
-    <h1>Edit User</h1>
-
-    {{ include('user/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('app_user_index') }}">back to list</a>
-
-    {{ include('user/_delete_form.html.twig') }}
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Użytkownicy</h1>
+            <hr class="sidebar-divider">
+        </div>
+        <div class="col-md-12 row">
+            <div class="col-md-5">
+                <div class="col-md-12">
+                    <h3>Edytuj użytkownika</h3>
+                </div>
+                <div class="col-md-12">
+                    {{ include('user/_form.html.twig') }}
+                </div>
+            </div>
+            {{ include('user/_index_body.html.twig') }}
+        </div>
+    </div>
 {% endblock %}
