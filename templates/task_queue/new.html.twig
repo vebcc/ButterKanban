@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New TaskQueue{% endblock %}
+
+{% block body %}
+    <h1>Create new TaskQueue</h1>
+
+    {{ include('task_queue/_form.html.twig') }}
+
+    <a href="{{ path('app_task_queue_index') }}">back to list</a>
+{% endblock %}

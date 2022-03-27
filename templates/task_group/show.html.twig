@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}TaskGroup{% endblock %}
+
+{% block body %}
+    <h1>TaskGroup</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ task_group.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ task_group.name }}</td>
+            </tr>
+            <tr>
+                <th>Comment</th>
+                <td>{{ task_group.comment }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_task_group_index') }}">back to list</a>
+
+    <a href="{{ path('app_task_group_edit', {'id': task_group.id}) }}">edit</a>
+
+    {{ include('task_group/_delete_form.html.twig') }}
+{% endblock %}

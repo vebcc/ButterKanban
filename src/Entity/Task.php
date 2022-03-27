@@ -34,6 +34,10 @@ class Task
     #[ORM\OneToMany(mappedBy: 'task', targetEntity: TaskComment::class, orphanRemoval: true)]
     private $taskComments;
 
+    #[ORM\ManyToOne(targetEntity: TaskQueue::class, inversedBy: 'tasks')]
+    #[ORM\JoinColumn(nullable: false)]
+    private $queue;
+
     public function __construct()
     {
         $this->taskUsers = new ArrayCollection();
@@ -149,6 +153,18 @@ class Task
                 $taskComment->setTask(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getQueue(): ?TaskQueue
+    {
+        return $this->queue;
+    }
+
+    public function setQueue(?TaskQueue $queue): self
+    {
+        $this->queue = $queue;
 
         return $this;
     }

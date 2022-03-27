@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}TaskUserType index{% endblock %}
+
+{% block body %}
+    <h1>TaskUserType index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for task_user_type in task_user_types %}
+            <tr>
+                <td>{{ task_user_type.id }}</td>
+                <td>{{ task_user_type.name }}</td>
+                <td>
+                    <a href="{{ path('app_task_user_type_show', {'id': task_user_type.id}) }}">show</a>
+                    <a href="{{ path('app_task_user_type_edit', {'id': task_user_type.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_task_user_type_new') }}">Create new</a>
+{% endblock %}

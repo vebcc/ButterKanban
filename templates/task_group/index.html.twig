@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}TaskGroup index{% endblock %}
+
+{% block body %}
+    <h1>TaskGroup index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Comment</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for task_group in task_groups %}
+            <tr>
+                <td>{{ task_group.id }}</td>
+                <td>{{ task_group.name }}</td>
+                <td>{{ task_group.comment }}</td>
+                <td>
+                    <a href="{{ path('app_task_group_show', {'id': task_group.id}) }}">show</a>
+                    <a href="{{ path('app_task_group_edit', {'id': task_group.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_task_group_new') }}">Create new</a>
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}TaskQueue index{% endblock %}
+
+{% block body %}
+    <h1>TaskQueue index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Comment</th>
+                <th>Priority</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for task_queue in task_queues %}
+            <tr>
+                <td>{{ task_queue.id }}</td>
+                <td>{{ task_queue.name }}</td>
+                <td>{{ task_queue.comment }}</td>
+                <td>{{ task_queue.priority }}</td>
+                <td>
+                    <a href="{{ path('app_task_queue_show', {'id': task_queue.id}) }}">show</a>
+                    <a href="{{ path('app_task_queue_edit', {'id': task_queue.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_task_queue_new') }}">Create new</a>
+{% endblock %}

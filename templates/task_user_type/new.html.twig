@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New TaskUserType{% endblock %}
+
+{% block body %}
+    <h1>Create new TaskUserType</h1>
+
+    {{ include('task_user_type/_form.html.twig') }}
+
+    <a href="{{ path('app_task_user_type_index') }}">back to list</a>
+{% endblock %}
