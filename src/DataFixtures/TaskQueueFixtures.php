@@ -6,8 +6,9 @@ namespace App\DataFixtures;
 use App\Entity\TaskQueue;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 
-class TaskQueueFixtures extends Fixture
+class TaskQueueFixtures extends Fixture implements FixtureGroupInterface
 {
     public function load(ObjectManager $manager)
     {
@@ -25,8 +26,14 @@ class TaskQueueFixtures extends Fixture
             $queue->setName($value);
             $queue->setPriority($key);
             $manager->persist($queue);
+            $this->addReference("TaskQueue_".$key, $queue);
         }
 
         $manager->flush();
+    }
+
+    public static function getGroups(): array
+    {
+        return ['default', 'full'];
     }
 }

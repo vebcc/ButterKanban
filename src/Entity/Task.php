@@ -42,6 +42,7 @@ class Task
     {
         $this->taskUsers = new ArrayCollection();
         $this->taskComments = new ArrayCollection();
+        $this->startData = new \DateTime();
     }
 
     public function getId(): ?int
