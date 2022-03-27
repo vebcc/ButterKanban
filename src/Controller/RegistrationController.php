@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
 use App\Security\EmailVerifier;
-use App\Services\UserGroup\UserGroupProvider;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -25,7 +24,6 @@ class RegistrationController extends AbstractController
     public function __construct
     (
         EmailVerifier $emailVerifier,
-        private UserGroupProvider $userGroupProvider
     )
     {
         $this->emailVerifier = $emailVerifier;
@@ -40,7 +38,6 @@ class RegistrationController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             // encode the plain password
-            $user->setUserGroup($this->userGroupProvider->getUserGroupByName('Gosc'));
             $user->setPassword(
             $userPasswordHasher->hashPassword(
                     $user,

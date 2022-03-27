@@ -43,7 +43,6 @@ security:
 
 
     role_hierarchy:
-        #ROLE_USER: ROLE_GUEST
         ROLE_ADMIN: ROLE_USER
 
 

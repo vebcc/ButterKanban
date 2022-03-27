@@ -37,10 +37,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: TaskUser::class, orphanRemoval: true)]
     private $taskUsers;
 
-    #[ORM\ManyToOne(targetEntity: UserGroup::class, inversedBy: 'user')]
-    #[ORM\JoinColumn(nullable: false)]
-    private $userGroup;
-
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: TaskComment::class)]
     private $taskComments;
 
@@ -174,18 +170,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $taskUser->setUser(null);
             }
         }
-
-        return $this;
-    }
-
-    public function getUserGroup(): ?UserGroup
-    {
-        return $this->userGroup;
-    }
-
-    public function setUserGroup(?UserGroup $userGroup): self
-    {
-        $this->userGroup = $userGroup;
 
         return $this;
     }
