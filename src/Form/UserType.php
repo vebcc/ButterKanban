@@ -18,7 +18,6 @@ class UserType extends AbstractType
             ->add('name')
             ->add('creationDate')
             ->add('isVerified')
-            ->add('userGroup')
         ;
     }
 
