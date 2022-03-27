@@ -32,11 +32,11 @@ class UserType extends AbstractType
                 'attr' => ['autocomplete' => 'new-password'],
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Please enter a password',
+                        'message' => 'Wprowadz haslo',
                     ]),
                     new Length([
                         'min' => 6,
-                        'minMessage' => 'Your password should be at least {{ limit }} characters',
+                        'minMessage' => 'Haslo musi miec conajmniej {{ limit }} znakow',
                         // max length allowed by Symfony for security reasons
                         'max' => 4096,
                     ]),
