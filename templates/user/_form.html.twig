@@ -1,4 +1,56 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+<div class="col-md-12 form-group has-feedback row">
+    <label class="control-label col-sm-3"><i class="fa fa-play"></i> {{ form_label(form.email) }} </label>
+    <div class="col-sm-9">
+        {{ form_widget(form.email, {'attr' : {'class': 'form-control'}}) }}
+        <small>{{ form_help(form.email) }}</small>
+
+        <div class="form-error">
+            {{ form_errors(form.email) }}
+        </div>
+    </div>
+</div>
+<div class="col-md-12 form-group has-feedback row">
+    <label class="control-label col-sm-3"><i class="fa fa-play"></i> {{ form_label(form.name) }} </label>
+    <div class="col-sm-9">
+        {{ form_widget(form.name, {'attr' : {'class': 'form-control'}}) }}
+        <small>{{ form_help(form.name) }}</small>
+
+        <div class="form-error">
+            {{ form_errors(form.name) }}
+        </div>
+    </div>
+</div>
+<div class="col-md-12 form-group has-feedback row">
+    <label class="control-label col-sm-3"><i class="fa fa-play"></i> {{ form_label(form.isVerified) }} </label>
+    <div class="col-sm-9">
+        {{ form_widget(form.isVerified, {'attr' : {'class': 'form-control'}}) }}
+        <small>{{ form_help(form.isVerified) }}</small>
+
+        <div class="form-error">
+            {{ form_errors(form.isVerified) }}
+        </div>
+    </div>
+</div>
+<div class="col-md-12 form-group has-feedback row">
+    <label class="control-label col-sm-3"><i class="fa fa-play"></i> {{ form_label(form.roles) }} </label>
+    <div class="col-sm-9">
+        {{ form_widget(form.roles, {'attr' : {'class': 'form-control'}}) }}
+        <small>{{ form_help(form.roles) }}</small>
+
+        <div class="form-error">
+            {{ form_errors(form.roles) }}
+        </div>
+    </div>
+</div>
+
+
+<div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10 sumb text-center">
+        <button class="btn btn-primary">{{ button_label|default('Edytuj') }}</button>
+    </div>
+</div>
+<div>
+    {{ form_row(form._token) }}
+</div>
 {{ form_end(form) }}
