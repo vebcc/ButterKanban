@@ -15,7 +15,7 @@ class MainController extends AbstractController
     {
         return $this->render('main/index.html.twig', [
             'controller_name' => 'MainController',
-            'tasks' => $taskQueueProvider->getAllTasksQueuesWithTasks(),
+            'queues' => $taskQueueProvider->getAllTasksQueuesWithTasks(),
         ]);
     }
 }

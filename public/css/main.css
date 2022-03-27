@@ -12,6 +12,11 @@ bottom: .5em;
 }
 
 .card{
+    max-height: 100px;
+    margin-top: 10px;
+}
+
+.card{
     cursor: pointer;
 }
 .nomargin{
