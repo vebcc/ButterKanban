@@ -37,9 +37,10 @@ security:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
         - { path: ^/login, roles: PUBLIC_ACCESS }
+        - { path: ^/user, roles: ROLE_ADMIN }
         - { path: ^/, roles: ROLE_USER }
         - { path: ^/task, roles: ROLE_USER }
-        - { path: ^/user, roles: ROLE_ADMIN }
+
 
     role_hierarchy:
         #ROLE_USER: ROLE_GUEST
