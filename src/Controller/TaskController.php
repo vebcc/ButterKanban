@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/')]
+#[Route('/task')]
 class TaskController extends AbstractController
 {
     #[Route('/', name: 'app_task_index', methods: ['GET'])]
