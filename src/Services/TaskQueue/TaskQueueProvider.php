@@ -20,6 +20,11 @@ class TaskQueueProvider
         $this->taskQueue = $entityManager->getRepository(TaskQueue::class);
     }
 
+    public function getAllTaskQueues(): array
+    {
+        return $this->taskQueue->findAll();
+    }
+
     public function getAllTasksQueuesWithTasks(): array
     {
         return $this->taskQueue->findAllTaskQueuesWithTasks();

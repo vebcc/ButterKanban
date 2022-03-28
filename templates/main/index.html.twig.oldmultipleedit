@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/form/group/GroupCompareListForm.js') }}"></script>
+{% endblock %}
+
+{% block title %}Kanban{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Kanban</h1>
+            <hr class="sidebar-divider">
+        </div>
+        <div class="col-md-12 row">
+            {{ include('main/_form.html.twig') }}
+        </div>
+    </div>
+{% endblock %}

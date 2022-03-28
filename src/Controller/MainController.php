@@ -14,20 +14,8 @@ class MainController extends AbstractController
     #[Route('/', name: 'app_main')]
     public function index(Request $request, TaskQueueProvider $taskQueueProvider): Response
     {
-        $taskQueueCollectionDTO = $taskQueueProvider->getAllTasksQueuesDTOWithTasks();
-
-        $form = $this->createForm(TaskQueueMultipleEntityType::class, $taskQueueCollectionDTO);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('group_index');
-        }
-
         return $this->render('main/index.html.twig', [
-            'queues' => $taskQueueCollectionDTO->toArray(),
-            'form' => $form->createView(),
+            'queues' => $taskQueueProvider->getAllTaskQueues(),
         ]);
     }
 }
