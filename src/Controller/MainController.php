@@ -2,20 +2,32 @@
 
 namespace App\Controller;
 
-use App\Services\TaskGroup\TaskGroupProvider;
+use App\Form\TaskQueueType\TaskQueueMultipleEntityType;
 use App\Services\TaskQueue\TaskQueueProvider;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class MainController extends AbstractController
 {
     #[Route('/', name: 'app_main')]
-    public function index(TaskQueueProvider $taskQueueProvider): Response
+    public function index(Request $request, TaskQueueProvider $taskQueueProvider): Response
     {
+        $taskQueueCollectionDTO = $taskQueueProvider->getAllTasksQueuesDTOWithTasks();
+
+        $form = $this->createForm(TaskQueueMultipleEntityType::class, $taskQueueCollectionDTO);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('group_index');
+        }
+
         return $this->render('main/index.html.twig', [
-            'controller_name' => 'MainController',
-            'queues' => $taskQueueProvider->getAllTasksQueuesWithTasks(),
+            'queues' => $taskQueueCollectionDTO->toArray(),
+            'form' => $form->createView(),
         ]);
     }
 }

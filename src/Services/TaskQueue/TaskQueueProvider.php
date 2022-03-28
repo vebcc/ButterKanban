@@ -22,6 +22,11 @@ class TaskQueueProvider
 
     public function getAllTasksQueuesWithTasks(): array
     {
-        return $this->taskQueue->findAll();
+        return $this->taskQueue->findAllTaskQueuesWithTasks();
+    }
+
+    public function getAllTasksQueuesDTOWithTasks(): TaskQueueCollectionDTO
+    {
+        return new TaskQueueCollectionDTO($this->taskQueue->findAllTaskQueuesWithTasks());
     }
 }

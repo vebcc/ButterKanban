@@ -45,6 +45,16 @@ class TaskQueueRepository extends ServiceEntityRepository
         }
     }
 
+    public function findAllTaskQueuesWithTasks(): array
+    {
+        return $this->createQueryBuilder('q')
+            ->select('q', 't')
+            ->join('q.tasks', 't')
+            ->groupBy('q')
+            ->getQuery()
+            ->getResult();
+    }
+
     // /**
     //  * @return TaskQueue[] Returns an array of TaskQueue objects
     //  */

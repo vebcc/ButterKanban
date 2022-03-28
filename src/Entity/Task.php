@@ -45,6 +45,11 @@ class Task
         $this->startData = new \DateTime();
     }
 
+    public function __toString(): string
+    {
+        return (string) $this->getTittle();
+    }
+
     public function getId(): ?int
     {
         return $this->id;

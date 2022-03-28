@@ -1,0 +1,17 @@
+{% import _self as formMacros %}
+
+{{ dump(form) }}
+
+{{ form_start(form) }}
+
+<div id="hidden-cocktails-form">
+    {% for taskQueueForm in form.taskQueues %}
+        {% for task in taskQueueForm.tasks %}
+            {{ form_widget(task, {'attr' : {'class': 'hidden_single_form_div'}}) }}
+
+        {% endfor %}
+    {% endfor %}
+
+</div>
+
+{{ form_end(form) }}
