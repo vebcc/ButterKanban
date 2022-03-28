@@ -1,146 +1,20 @@
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ path('main') }}">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ path('app_main') }}">
         <div class="sidebar-brand-icon rotate-n-15">
             <i class="fas fa-laugh-wink"></i>
         </div>
-        <div class="sidebar-brand-text mx-3">Drunk<sub>Machine</sub></div>
+        <div class="sidebar-brand-text mx-3">Butter<sub>Kanban</sub></div>
     </a>
     <hr class="sidebar-divider my-0">
 
     <li class="nav-item active">
-        <a class="nav-link" href="{{ path('task') }}">
+        <a class="nav-link" href="{#{{ path('task') }}#}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Drinki</span></a>
+            <span>Zadania</span></a>
     </li>
 
     <hr class="sidebar-divider">
-    <div class="sidebar-heading">
-        Ustawienia wstępne
-    </div>
 
-    <li class="nav-item active">
-        <a class="nav-link" href="{{ path('container_index') }}">
-            <i class="fas fa-fw fa-filter"></i>
-            <span>Pompy</span></a>
-    </li>
-
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo1" aria-expanded="true" aria-controls="collapseTwo">
-            <i class="fas fa-fw fa-tools"></i>
-            <span>Funkcje</span>
-        </a>
-        <div id="collapseTwo1" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Funkcje:</h6>
-                <a class="collapse-item" href="{{ path('container_update') }}">Uzupełnij pojemniki</a>
-                {#<a class="collapse-item" href="index.php?goto=discomode">Tryby disco</a>#}
-            </div>
-        </div>
-    </li>
-
-    <li class="nav-item active">
-        <a class="nav-link" href="{{ path('setting_index') }}">
-            <i class="fas fa-fw fa-wrench"></i>
-            <span>Parametry</span></a>
-    </li>
-
-    <li class="nav-item active">
-        <a class="nav-link" href="{{ path('pump_clean') }}">
-            <i class="fas fa-fw fa-shower"></i>
-            <span>Czyszczenie pomp</span></a>
-    </li>
-
-    <li class="nav-item active">
-        <a class="nav-link" href="{{ path('group_index') }}">
-            <i class="fas fa-fw fa-list"></i>
-            <span>Zestawy</span></a>
-    </li>
-
-    <hr class="sidebar-divider">
-    <div class="sidebar-heading">
-        Zaawansowane
-    </div>
-
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-            <i class="fas fa-fw fa-table"></i>
-            <span>Dodawanie</span>
-        </a>
-        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Dodawanie:</h6>
-                <a class="collapse-item" href="{{ path('ingredient_index') }}">Składniki</a>
-                <a class="collapse-item" href="{{ path('cocktail_index') }}">Drinki</a>
-            </div>
-        </div>
-    </li>
-
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo2" aria-expanded="true" aria-controls="collapseTwo">
-            <i class="fas fa-fw fa-tools"></i>
-            <span>Funkcje serwisowe</span>
-        </a>
-        <div id="collapseTwo2" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Funkcje serwisowe:</h6>
-               {# <a class="collapse-item" href="index.php?goto=servicefunction">Opcje serwisowe</a>#}
-                <a class="collapse-item" href="{{ path('pump_manual') }}">Ręczne włączanie pomp</a>
-            </div>
-        </div>
-    </li>
-
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo3" aria-expanded="true" aria-controls="collapseTwo">
-            <i class="fas fa-fw fa-wrench"></i>
-            <span>Ustawienia</span>
-        </a>
-        <div id="collapseTwo3" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Ustawienia:</h6>
-                <a class="collapse-item" href="{{ path('setting_index', {'type' : 'pro'}) }}">Parametry</a>
-                <a class="collapse-item" href="{{ path('pump_index') }}">Ustawienia pomp</a>
-                <a class="collapse-item" href="{{ path('driver_index') }}">Ustawienia sterowników</a>
-            </div>
-        </div>
-    </li>
-
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo4" aria-expanded="true" aria-controls="collapseTwo">
-            <i class="fas fa-fw fa-thermometer-half"></i>
-            <span>Kalibracja</span>
-        </a>
-        <div id="collapseTwo4" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Kalibracja:</h6>
-                <a class="collapse-item" href="{{ path('ingredient_calibration') }}">Kalibracja napoju</a>
-                <a class="collapse-item" href="{{ path('pump_calibration') }}">Kalibracja pompy</a>
-            </div>
-        </div>
-    </li>
-
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo5" aria-expanded="true" aria-controls="collapseTwo">
-            <i class="fas fa-fw fa-puzzle-piece"></i>
-            <span>Integracje</span>
-        </a>
-        <div id="collapseTwo5" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Integracje:</h6>
-                <a class="collapse-item" href="{{ path('integration_cb') }}">CocktailBuilder.com</a>
-            </div>
-        </div>
-    </li>
-
-    <hr class="sidebar-divider">
-    <div class="sidebar-heading">
-        Inne
-    </div>
-
-    <li class="nav-item active">
-        <a class="nav-link" href="{{ path('help_index') }}">
-            <i class="fas fa-fw fa-question"></i>
-            <span>Instrukcja</span></a>
-    </li>
 
     <hr class="sidebar-divider d-none d-md-block">
     <div class="text-center d-none d-md-inline">

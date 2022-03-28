@@ -16,6 +16,10 @@ bottom: .5em;
     margin-top: 10px;
 }
 
+/*#wrapper {
+    height: 100vh;
+}*/
+
 .card{
     cursor: pointer;
 }
