@@ -20,7 +20,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
         'post' => [
             'access_control' =>"is_granted('ROLE_USER')" ,
             'normalization_context' => ['groups' => 'task:list'],
-            "access_control_message" => "You do not have the permission to get"
+            "access_control_message" => "You do not have the permission to post"
         ]
         ],
     itemOperations: [
@@ -32,12 +32,12 @@ use Symfony\Component\Serializer\Annotation\Groups;
         'patch' => [
             'access_control' =>"is_granted('ROLE_USER')" ,
             'normalization_context' => ['groups' => 'task:item'],
-            "access_control_message" => "You do not have the permission to get"
+            "access_control_message" => "You do not have the permission to patch"
         ],
         'delete' => [
             'access_control' =>"is_granted('ROLE_USER')" ,
             'normalization_context' => ['groups' => 'task:item'],
-            "access_control_message" => "You do not have the permission to get"
+            "access_control_message" => "You do not have the permission to delete"
         ]
     ],
     order: ['startData' => 'DESC'],
@@ -65,17 +65,20 @@ class Task
 
     #[ORM\ManyToOne(targetEntity: TaskGroup::class, inversedBy: 'tasks')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['task:list', 'task:item'])]
     private $taskGroup;
 
     #[ORM\OneToMany(mappedBy: 'task', targetEntity: TaskUser::class)]
+    #[Groups(['task:list', 'task:item'])]
     private $taskUsers;
 
     #[ORM\OneToMany(mappedBy: 'task', targetEntity: TaskComment::class, orphanRemoval: true)]
+    #[Groups(['task:list', 'task:item'])]
     private $taskComments;
 
     #[ORM\ManyToOne(targetEntity: TaskQueue::class, inversedBy: 'tasks')]
-    #[Groups(['task:list', 'task:item'])]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['task:list', 'task:item'])]
     private $queue;
 
     public function __construct()

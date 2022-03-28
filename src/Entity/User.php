@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -9,38 +10,80 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
+#[ApiResource(
+    collectionOperations: [
+        'get' => [
+            'access_control' =>"is_granted('ROLE_ADMIN')" ,
+            'normalization_context' => ['groups' => 'user:list'],
+            "access_control_message" => "You do not have the permission to get"
+        ],
+        'post' => [
+            'access_control' =>"is_granted('ROLE_ADMIN')" ,
+            'normalization_context' => ['groups' => 'user:list'],
+            "access_control_message" => "You do not have the permission to post"
+        ]
+    ],
+    itemOperations: [
+        'get' => [
+            'access_control' =>"is_granted('ROLE_ADMIN')" ,
+            'normalization_context' => ['groups' => 'user:item'],
+            "access_control_message" => "You do not have the permission to get"
+        ],
+        'patch' => [
+            'access_control' =>"is_granted('ROLE_ADMIN')" ,
+            'normalization_context' => ['groups' => 'user:item'],
+            "access_control_message" => "You do not have the permission to patch"
+        ],
+        'delete' => [
+            'access_control' =>"is_granted('ROLE_ADMIN')" ,
+            'normalization_context' => ['groups' => 'user:item'],
+            "access_control_message" => "You do not have the permission to delete"
+        ]
+    ],
+    paginationEnabled: false,
+)]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
+    #[Groups(['user:list', 'user:item'])]
     private $id;
 
     #[ORM\Column(type: 'string', length: 180, unique: true)]
+    #[Groups(['user:list', 'user:item'])]
     private $email;
 
     #[ORM\Column(type: 'json')]
+    #[Groups(['user:list', 'user:item'])]
     private $roles = [];
 
     #[ORM\Column(type: 'string')]
+    #[Groups(['user:list', 'user:item'])]
     private $password;
 
     #[ORM\Column(type: 'string', length: 100)]
+    #[Groups(['user:list', 'user:item'])]
     private $name;
 
     #[ORM\Column(type: 'datetime')]
+    #[Groups(['user:list', 'user:item'])]
     private $creationDate;
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: TaskUser::class, orphanRemoval: true)]
+    #[Groups(['user:list', 'user:item'])]
     private $taskUsers;
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: TaskComment::class)]
+    #[Groups(['user:list', 'user:item'])]
     private $taskComments;
 
     #[ORM\Column(type: 'boolean')]
+    #[Groups(['user:list', 'user:item'])]
     private $isVerified = false;
 
     public function __construct()
