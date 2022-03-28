@@ -2,29 +2,64 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\TaskQueueRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: TaskQueueRepository::class)]
+#[ApiResource(
+    collectionOperations: [
+        'get' => [
+            'access_control' =>"is_granted('ROLE_USER')" ,
+            'normalization_context' => ['groups' => 'taskQueue:list'],
+            "access_control_message" => "You do not have the permission to get"
+        ]],
+    itemOperations: [
+        'get' => [
+            'access_control' =>"is_granted('ROLE_USER')" ,
+            'normalization_context' => ['groups' => 'taskQueue:item'],
+            "access_control_message" => "You do not have the permission to get"
+        ],
+        'patch' => [
+            'access_control' =>"is_granted('ROLE_USER')" ,
+            'normalization_context' => ['groups' => 'taskQueue:item'],
+            "access_control_message" => "You do not have the permission to get"
+        ],
+        'delete' => [
+            'access_control' =>"is_granted('ROLE_USER')" ,
+            'normalization_context' => ['groups' => 'taskQueue:item'],
+            "access_control_message" => "You do not have the permission to get"
+        ]
+    ],
+
+    order: ['startData' => 'DESC'],
+    paginationEnabled: false,
+)]
 class TaskQueue
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
+    #[Groups(['taskQueue:list', 'taskQueue:item'])]
     private $id;
 
     #[ORM\Column(type: 'string', length: 100)]
+    #[Groups(['taskQueue:list', 'taskQueue:item'])]
     private $name;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[Groups(['taskQueue:list', 'taskQueue:item'])]
     private $comment;
 
     #[ORM\Column(type: 'smallint')]
+    #[Groups(['taskQueue:list', 'taskQueue:item'])]
     private $priority;
 
     #[ORM\OneToMany(mappedBy: 'queue', targetEntity: Task::class)]
+    #[Groups(['taskQueue:list', 'taskQueue:item'])]
     private $tasks;
 
     public function __construct()

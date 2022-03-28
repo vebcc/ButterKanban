@@ -6,22 +6,56 @@ use App\Repository\TaskRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: TaskRepository::class)]
+#[ApiResource(
+    collectionOperations: [
+        'get' => [
+            'access_control' =>"is_granted('ROLE_USER')" ,
+            'normalization_context' => ['groups' => 'task:list'],
+            "access_control_message" => "You do not have the permission to get"
+        ]],
+    itemOperations: [
+        'get' => [
+            'access_control' =>"is_granted('ROLE_USER')" ,
+            'normalization_context' => ['groups' => 'task:item'],
+            "access_control_message" => "You do not have the permission to get"
+        ],
+        'patch' => [
+            'access_control' =>"is_granted('ROLE_USER')" ,
+            'normalization_context' => ['groups' => 'task:item'],
+            "access_control_message" => "You do not have the permission to get"
+        ],
+        'delete' => [
+            'access_control' =>"is_granted('ROLE_USER')" ,
+            'normalization_context' => ['groups' => 'task:item'],
+            "access_control_message" => "You do not have the permission to get"
+        ]
+    ],
+
+    order: ['startData' => 'DESC'],
+    paginationEnabled: false,
+)]
 class Task
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
+    #[Groups(['task:list', 'task:item'])]
     private $id;
 
     #[ORM\Column(type: 'string', length: 200)]
+    #[Groups(['task:list', 'task:item'])]
     private $tittle;
 
     #[ORM\Column(type: 'text')]
+    #[Groups(['task:list', 'task:item'])]
     private $comment;
 
     #[ORM\Column(type: 'datetime')]
+    #[Groups(['task:list', 'task:item'])]
     private $startData;
 
     #[ORM\ManyToOne(targetEntity: TaskGroup::class, inversedBy: 'tasks')]
@@ -35,6 +69,7 @@ class Task
     private $taskComments;
 
     #[ORM\ManyToOne(targetEntity: TaskQueue::class, inversedBy: 'tasks')]
+    #[Groups(['task:list', 'task:item'])]
     #[ORM\JoinColumn(nullable: false)]
     private $queue;
 
@@ -47,7 +82,7 @@ class Task
 
     public function __toString(): string
     {
-        return (string) $this->getTittle();
+        return (string)$this->getTittle();
     }
 
     public function getId(): ?int
