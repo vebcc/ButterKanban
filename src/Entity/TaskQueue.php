@@ -16,7 +16,13 @@ use Symfony\Component\Serializer\Annotation\Groups;
             'access_control' =>"is_granted('ROLE_USER')" ,
             'normalization_context' => ['groups' => 'taskQueue:list'],
             "access_control_message" => "You do not have the permission to get"
-        ]],
+        ],
+        'post' => [
+            'access_control' =>"is_granted('ROLE_USER')" ,
+            'normalization_context' => ['groups' => 'taskQueue:list'],
+            "access_control_message" => "You do not have the permission to get"
+        ]
+        ],
     itemOperations: [
         'get' => [
             'access_control' =>"is_granted('ROLE_USER')" ,
