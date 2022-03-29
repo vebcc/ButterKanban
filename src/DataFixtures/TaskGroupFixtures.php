@@ -12,10 +12,20 @@ class TaskGroupFixtures extends Fixture implements FixtureGroupInterface
 {
     public function load(ObjectManager $manager)
     {
-        $group = new TaskGroup();
-        $group->setName("Domyslna");
-        $manager->persist($group);
-        $this->addReference("TaskGroup_Default", $group);
+        $groups = [
+            ['Domyslna', 'Default'],
+            ['Inne', 'Other'],
+            ['Błedy', 'Bugs'],
+            ['Aktualizacje', 'Updates'],
+            ['Nowa Funkcjonalnosc', 'NewFeature']
+        ];
+
+        foreach($groups as $key => $value){
+            $group = new TaskGroup();
+            $group->setName($value[0]);
+            $manager->persist($group);
+            $this->addReference("TaskGroup_".$value[1], $group);
+        }
 
         $manager->flush();
     }
