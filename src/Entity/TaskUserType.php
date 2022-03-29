@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\TaskUserTypeRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
@@ -52,10 +54,13 @@ class TaskUserType
     #[Groups(['taskUserType:list', 'taskUserType:item'])]
     private $name;
 
-    #[ORM\ManyToOne(targetEntity: TaskUser::class, inversedBy: 'userType')]
-    #[ORM\JoinColumn(nullable: false)]
-    #[Groups(['taskUserType:list', 'taskUserType:item'])]
-    private $taskUser;
+    #[ORM\OneToMany(mappedBy: 'taskUserType', targetEntity: TaskUser::class)]
+    private $taskUsers;
+
+    public function __construct()
+    {
+        $this->taskUsers = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -74,14 +79,32 @@ class TaskUserType
         return $this;
     }
 
-    public function getTaskUser(): ?TaskUser
+    /**
+     * @return Collection<int, TaskUser>
+     */
+    public function getTaskUsers(): Collection
     {
-        return $this->taskUser;
+        return $this->taskUsers;
     }
 
-    public function setTaskUser(?TaskUser $taskUser): self
+    public function addTaskUser(TaskUser $taskUser): self
     {
-        $this->taskUser = $taskUser;
+        if (!$this->taskUsers->contains($taskUser)) {
+            $this->taskUsers[] = $taskUser;
+            $taskUser->setTaskUserType($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTaskUser(TaskUser $taskUser): self
+    {
+        if ($this->taskUsers->removeElement($taskUser)) {
+            // set the owning side to null (unless already changed)
+            if ($taskUser->getTaskUserType() === $this) {
+                $taskUser->setTaskUserType(null);
+            }
+        }
 
         return $this;
     }

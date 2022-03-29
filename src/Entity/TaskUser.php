@@ -54,14 +54,14 @@ class TaskUser
     #[Groups(['taskUser:list', 'taskUser:item'])]
     private $task;
 
-    #[ORM\OneToMany(mappedBy: 'taskUser', targetEntity: TaskUserType::class)]
-    #[Groups(['taskUser:list', 'taskUser:item'])]
-    private $userType;
-
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'taskUsers')]
     #[ORM\JoinColumn(nullable: false)]
     #[Groups(['taskUser:list', 'taskUser:item'])]
     private $user;
+
+    #[ORM\ManyToOne(targetEntity: TaskUserType::class, inversedBy: 'taskUsers')]
+    #[ORM\JoinColumn(nullable: false)]
+    private $taskUserType;
 
     public function __construct()
     {
@@ -85,36 +85,6 @@ class TaskUser
         return $this;
     }
 
-    /**
-     * @return Collection<int, TaskUserType>
-     */
-    public function getUserType(): Collection
-    {
-        return $this->userType;
-    }
-
-    public function addUserType(TaskUserType $userType): self
-    {
-        if (!$this->userType->contains($userType)) {
-            $this->userType[] = $userType;
-            $userType->setTaskUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeUserType(TaskUserType $userType): self
-    {
-        if ($this->userType->removeElement($userType)) {
-            // set the owning side to null (unless already changed)
-            if ($userType->getTaskUser() === $this) {
-                $userType->setTaskUser(null);
-            }
-        }
-
-        return $this;
-    }
-
     public function getUser(): ?User
     {
         return $this->user;
@@ -123,6 +93,18 @@ class TaskUser
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getTaskUserType(): ?TaskUserType
+    {
+        return $this->taskUserType;
+    }
+
+    public function setTaskUserType(?TaskUserType $taskUserType): self
+    {
+        $this->taskUserType = $taskUserType;
 
         return $this;
     }
