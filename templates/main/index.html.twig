@@ -11,6 +11,7 @@
     <script src="{{ asset('js/jquery-ui.js') }}"></script>
     <script src="{{ asset('js/form/group/GroupForm.js') }}"></script>
     <script src="{{ asset('js/jquery.ui.touch-punch.min.js') }}"></script>
+    <script src="{{ asset('js/section/home.js') }}"></script>
 {% endblock %}
 
 {% block title %}Kanban{% endblock %}
@@ -28,7 +29,7 @@
                     <div id="sortable-{{ queue.id }}" class="col-md-12 row droptrue task-list">
                             {% for task in queue.tasks %}
                                     <div id="task-{{ task.id }}" class="card border-left-primary shadow h-100 py-2 ui-state-default list-true col-md-12 card-main">
-                                        <div class="card-body">
+                                        <div class="card-body" data-toggle="modal" data-target="#TaskModal" data-id="{{ task.id }}">
                                             <div class="row no-gutters align-items-center">
                                                 <div class="col mr-2">
                                                     <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">{{ task.tittle }}</div>
@@ -48,6 +49,36 @@
             {% else %}
                 <div class="col-sm">Brak kolejek!</div>
             {% endfor %}
+        </div>
+        <div>
+            {% block CocktailModal %}
+                <div class="modal fade allmodal" id="TaskModal" tabindex="-1" role="dialog"
+                     aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-notify modal-info" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <p class="heading lead taskName"></p>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true" class="white-text">×</span>
+                                </button>
+                            </div>
+                                <div class="modal-body">
+                                    <div class="text-center">
+                                        <i class="fas text-gray-300 fa-4x mb-3 animated rotateIn"></i>
+                                        <p class="h4 mb-4 taskName"></p>
+                                        <hr>
+                                        <p class="taskComment"></p>
+                                    </div>
+                                </div>
+
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true" class="white-text">&times;</span>
+                                </button>
+                            </div>
+
+                        </div>
+                </div>
+            {% endblock %}
         </div>
     </div>
 {% endblock %}
