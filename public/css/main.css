@@ -23,6 +23,25 @@ bottom: .5em;
 .card{
     cursor: pointer;
 }
+
+.taskValue{
+    margin: 5px;
+}
+
+.vertical-center-text{
+    align-items: center;
+}
+
+.fas{
+    margin-right: 0.5rem;
+}
+
+@media (min-width: 1000px) {
+    .modal-dialog {
+        max-width: 600px;
+    }
+}
+
 .nomargin{
     margin-top: 0px;
     margin-bottom: 0px;

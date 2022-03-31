@@ -1,4 +1,6 @@
 $(document).ready(function () {
+    let mainModal;
+
     let superQuery = `query ($id: ID!){
             task(id: $id){
                 id
@@ -13,6 +15,9 @@ $(document).ready(function () {
                         name
                     }
                 }
+                taskGroup{
+                    name
+                }
                 taskComments{
                     comment
                 }
@@ -21,14 +26,13 @@ $(document).ready(function () {
 
     $(".card-body").click(function () {
         let modal = $("#TaskModal");
+        mainModal = modal;
         let id = $(this).data("id");
-        console.log(id);
         data = parseToSend(superQuery, id, "/api/tasks/")
         sendAjaxRequest("POST", "/api/graphql", data, 'application/json', modal);
     });
 
     function sendAjaxRequest(method, url, data, contentType, modal) {
-        console.log(data);
         $.ajax({
             method: method,
             url: url,
@@ -42,8 +46,13 @@ $(document).ready(function () {
     }
 
     function writeToModal(modal, data) {
-        modal.find(".taskName").html(data["tittle"]);
-        modal.find(".taskComment").html(data["comment"]);
+        modal.find(".taskName").html(data["data"]["task"]["tittle"]);
+        modal.find(".taskComment").html(data["data"]["task"]["comment"]);
+        modal.find(".taskGroup").html(data["data"]["task"]["taskGroup"]["name"]);
+
+        modal.find(".taskDate").html(parseDate(data["data"]["task"]["startData"]));
+
+        data["data"]["task"]["taskUsers"].forEach(findUsers)
     }
 
 
@@ -55,4 +64,24 @@ $(document).ready(function () {
             }
         });
     }
+
+    function findUsers(item){
+        switch(item["taskUserType"]["name"]){
+            case "Zglaszajacy":
+                mainModal.find(".weryfikator").html(item["user"]["name"]);
+                break;
+            case "Weryfikator":
+                mainModal.find(".zglaszajacy").html(item["user"]["name"]);
+                break;
+        }
+    }
+
+    function parseDate(dateString){
+        let date = new Date(dateString)
+        let month = ["Styczeń", "Luty", "Marzec", "Kwiecień", "Maj", "Pazdziernik", "Listopad", "Grudzień"];
+        return date.getDate() + " " + month[date.getMonth()] + " " + date.getFullYear();
+    }
 });
+
+//TODO: Obciecie ilosci znakow na stronie glownej z lista taskow
+//TODO: kolorowanie grup
