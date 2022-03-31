@@ -15,16 +15,16 @@ class TaskFixtures extends Fixture implements DependentFixtureInterface, Fixture
     public function load(ObjectManager $manager)
     {
         $tasks = [
-            ['Projekt jakis', 'cos fajnego', 1, 'Default'],
-            ['Fajny projekt', 'cos ', 2, 'Default'],
-            ['Drunk Machine', 'cos takiego', 3, 'Default'],
-            ['Kanban api', 'tak bylo', 4, 'Default'],
-            ['spanko', 'no', 5, 'Default'],
-            ['Mikrotik API', 'ma dzialac', 6, 'Default'],
-            ['Projekcik 1', 'ma dzialac', 6, 'Default'],
-            ['Projekt 2', 'ma dzialac', 2, 'Default'],
-            ['Projekt 3', 'ma dzialac', 2, 'Default'],
-            ['Projekt 444444', 'ma dzialac', 4, 'Default']
+            ['Projekt jakis', 'cos fajnego', 1, 'Other'],
+            ['Fajny projekt', 'cos ', 2, 'Bugs'],
+            ['Drunk Machine', 'cos takiego', 3, 'NewFeature'],
+            ['Kanban api', 'tak bylo', 4, 'Updates'],
+            ['spanko', 'no', 5, 'Updates'],
+            ['Mikrotik API', 'ma dzialac', 6, 'Other'],
+            ['Projekcik 1', 'ma dzialac', 6, 'Bugs'],
+            ['Projekt 2', 'ma dzialac', 2, 'Other'],
+            ['Projekt 3', 'ma dzialac', 2, 'Bugs'],
+            ['Projekt 444444', 'ma dzialac', 4, 'NewFeature']
         ];
 
         foreach($tasks as $key => $value){
