@@ -1,4 +1,35 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+<div class="col-md-12 form-group has-feedback row">
+    <label class="control-label col-sm-3"><i class="fa fa-play"></i> Tytuł </label>
+    <div class="col-sm-9">
+        {{ form_widget(form.tittle, {'attr' : {'class': 'form-control'}}) }}
+        <small>{{ form_help(form.tittle) }}</small>
+
+        <div class="form-error">
+            {{ form_errors(form.tittle) }}
+        </div>
+    </div>
+</div>
+<div class="col-md-12 form-group has-feedback row">
+    <label class="control-label col-sm-3"><i class="fa fa-play"></i> Opis </label>
+    <div class="col-sm-9">
+        {{ form_widget(form.comment, {'attr' : {'class': 'form-control'}}) }}
+        <small>{{ form_help(form.comment) }}</small>
+
+        <div class="form-error">
+            {{ form_errors(form.comment) }}
+        </div>
+    </div>
+</div>
+<div class="col-md-12 form-group has-feedback row">
+    <label class="control-label col-sm-3"><i class="fa fa-play"></i> Grupa </label>
+    <div class="col-sm-9">
+        {{ form_widget(form.taskGroup, {'attr' : {'class': 'form-control'}}) }}
+        <small>{{ form_help(form.taskGroup) }}</small>
+
+        <div class="form-error">
+            {{ form_errors(form.taskGroup) }}
+        </div>
+    </div>
+</div>
 {{ form_end(form) }}

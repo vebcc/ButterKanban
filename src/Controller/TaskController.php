@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Task;
-use App\Form\TaskType;
+use App\Form\TaskType\TaskType;
 use App\Repository\TaskRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,8 +16,12 @@ class TaskController extends AbstractController
     #[Route('/', name: 'app_task_index', methods: ['GET'])]
     public function index(TaskRepository $taskRepository): Response
     {
+        $task = new Task();
+        $form = $this->createForm(TaskType::class, $task);
+
         return $this->render('task/index.html.twig', [
             'tasks' => $taskRepository->findAll(),
+            'form' => $form->createView(),
         ]);
     }
 
@@ -25,7 +29,9 @@ class TaskController extends AbstractController
     public function new(Request $request, TaskRepository $taskRepository): Response
     {
         $task = new Task();
-        $form = $this->createForm(TaskType::class, $task);
+        $form = $this->createForm(TaskType::class, $task, array(
+            'action' => $this->generateUrl("app_task_new")
+        ));
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

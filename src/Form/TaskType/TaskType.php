@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Form;
+namespace App\Form\TaskType;
 
 use App\Entity\Task;
 use Symfony\Component\Form\AbstractType;
@@ -14,7 +14,6 @@ class TaskType extends AbstractType
         $builder
             ->add('tittle')
             ->add('comment')
-            ->add('startData')
             ->add('taskGroup')
         ;
     }
