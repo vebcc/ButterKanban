@@ -8,13 +8,42 @@
     <hr class="sidebar-divider my-0">
 
     <li class="nav-item active">
-        <a class="nav-link" href="{#{{ path('task') }}#}">
+        <a class="nav-link" href="{{ path('app_main') }}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Zadania</span></a>
+            <span>Strona główna</span></a>
     </li>
 
     <hr class="sidebar-divider">
 
+    <li class="nav-item active">
+        <a class="nav-link" href="{{ path('app_task_index') }}">
+            <i class="fas fa-comment-alt"></i>
+            <span>Zadania</span></a>
+    </li>
+
+    {% if is_granted("ROLE_ADMIN") %}
+
+        <hr class="sidebar-divider my-0">
+
+        <li class="nav-item active">
+            <a class="nav-link" href="{{ path('app_user_index') }}">
+                <i class="fas fa-user-edit"></i>
+                <span>Użytkownicy</span></a>
+        </li>
+
+        <li class="nav-item active">
+            <a class="nav-link" href="{{ path('app_task_group_index') }}">
+                <i class="fas fa-layer-group"></i>
+                <span>Grupy</span></a>
+        </li>
+
+        <li class="nav-item active">
+            <a class="nav-link" href="{{ path('app_task_queue_index') }}">
+                <i class="fas fa-calendar-check"></i>
+                <span>Kolejki</span></a>
+        </li>
+
+    {% endif %}
 
     <hr class="sidebar-divider d-none d-md-block">
     <div class="text-center d-none d-md-inline">
