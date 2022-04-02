@@ -34,4 +34,9 @@ class TaskQueueProvider
     {
         return new TaskQueueCollectionDTO($this->taskQueue->findAllTaskQueuesWithTasks());
     }
+
+    public function getTaskByName(string $name): TaskQueue
+    {
+        return $this->taskQueue->findOneBy(['name' => $name]);
+    }
 }

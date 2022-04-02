@@ -1,5 +1,10 @@
 {% extends 'base.html.twig' %}
 
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/form/CocktailForm.js') }}"></script>
+{% endblock %}
+
 {% block title %}Zadania{% endblock %}
 
 {% block body %}

@@ -68,7 +68,7 @@ class Task
     #[Groups(['task:list', 'task:item'])]
     private $taskGroup;
 
-    #[ORM\OneToMany(mappedBy: 'task', targetEntity: TaskUser::class)]
+    #[ORM\OneToMany(mappedBy: 'task', targetEntity: TaskUser::class, cascade: ['persist'])]
     #[Groups(['task:list', 'task:item'])]
     private $taskUsers;
 

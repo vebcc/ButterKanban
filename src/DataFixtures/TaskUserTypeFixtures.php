@@ -13,9 +13,8 @@ class TaskUserTypeFixtures extends Fixture implements FixtureGroupInterface
     public function load(ObjectManager $manager)
     {
         $taskUserTypes = [
-            1 => ['Wlasciciel', 'Wlasciciel'],
-            2 => ['Weryfikator', 'Weryfikator'],
-            3 => ['Zglaszajacy', 'Zglaszajacy'],
+            1 => ['Weryfikator', 'Weryfikator'],
+            2 => ['Zglaszajacy', 'Zglaszajacy'],
         ];
 
         foreach($taskUserTypes as $key => $value){

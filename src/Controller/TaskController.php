@@ -17,7 +17,9 @@ class TaskController extends AbstractController
     public function index(TaskRepository $taskRepository): Response
     {
         $task = new Task();
-        $form = $this->createForm(TaskType::class, $task);
+        $form = $this->createForm(TaskType::class, $task, array(
+            'action' => $this->generateUrl("app_task_new")
+        ));
 
         return $this->render('task/index.html.twig', [
             'tasks' => $taskRepository->findAll(),

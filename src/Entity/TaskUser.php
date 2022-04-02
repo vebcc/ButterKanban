@@ -67,6 +67,11 @@ class TaskUser
     {
         $this->userType = new ArrayCollection();
     }
+    public function __toString(): string
+    {
+        return (string)$this->getId();
+    }
+
 
     public function getId(): ?int
     {
