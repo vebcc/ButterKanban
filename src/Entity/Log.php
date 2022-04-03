@@ -15,7 +15,7 @@ class Log
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\ManyToOne(targetEntity: task::class, inversedBy: 'logs')]
+    #[ORM\ManyToOne(targetEntity: Task::class, inversedBy: 'logs')]
     #[ORM\JoinColumn(nullable: false)]
     private $task;
 
@@ -37,12 +37,12 @@ class Log
         return $this->id;
     }
 
-    public function getTask(): ?task
+    public function getTask(): ?Task
     {
         return $this->task;
     }
 
-    public function setTask(?task $task): self
+    public function setTask(?Task $task): self
     {
         $this->task = $task;
 

@@ -45,6 +45,17 @@ class LogRepository extends ServiceEntityRepository
         }
     }
 
+    public function findLatestLogs($count): array
+    {
+        return $this->createQueryBuilder('c')
+            ->select('c')
+            ->orderBy('c.id', 'DESC')
+            ->setMaxResults($count)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
     // /**
     //  * @return Log[] Returns an array of Log objects
     //  */
