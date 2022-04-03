@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\TaskCommentRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
@@ -70,9 +72,13 @@ class TaskComment
     #[Groups(['taskComment:list', 'taskComment:item'])]
     private $user;
 
+    #[ORM\OneToMany(mappedBy: 'comment', targetEntity: Log::class)]
+    private $logs;
+
     public function __construct()
     {
         $this->date = new \DateTime();
+        $this->logs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -136,6 +142,36 @@ class TaskComment
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Log>
+     */
+    public function getLogs(): Collection
+    {
+        return $this->logs;
+    }
+
+    public function addLog(Log $log): self
+    {
+        if (!$this->logs->contains($log)) {
+            $this->logs[] = $log;
+            $log->setComment($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLog(Log $log): self
+    {
+        if ($this->logs->removeElement($log)) {
+            // set the owning side to null (unless already changed)
+            if ($log->getComment() === $this) {
+                $log->setComment(null);
+            }
+        }
 
         return $this;
     }

@@ -81,11 +81,15 @@ class Task
     #[Groups(['task:list', 'task:item'])]
     private $queue;
 
+    #[ORM\OneToMany(mappedBy: 'task', targetEntity: Log::class, orphanRemoval: true)]
+    private $logs;
+
     public function __construct()
     {
         $this->taskUsers = new ArrayCollection();
         $this->taskComments = new ArrayCollection();
         $this->startData = new \DateTime();
+        $this->logs = new ArrayCollection();
     }
 
     public function __toString(): string
@@ -214,6 +218,36 @@ class Task
     public function setQueue(?TaskQueue $queue): self
     {
         $this->queue = $queue;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Log>
+     */
+    public function getLogs(): Collection
+    {
+        return $this->logs;
+    }
+
+    public function addLog(Log $log): self
+    {
+        if (!$this->logs->contains($log)) {
+            $this->logs[] = $log;
+            $log->setTask($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLog(Log $log): self
+    {
+        if ($this->logs->removeElement($log)) {
+            // set the owning side to null (unless already changed)
+            if ($log->getTask() === $this) {
+                $log->setTask(null);
+            }
+        }
 
         return $this;
     }

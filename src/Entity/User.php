@@ -86,11 +86,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Groups(['user:list', 'user:item'])]
     private $isVerified = false;
 
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Log::class, orphanRemoval: true)]
+    private $logs;
+
     public function __construct()
     {
         $this->taskUsers = new ArrayCollection();
         $this->taskComments = new ArrayCollection();
         $this->creationDate = new \DateTime();
+        $this->logs = new ArrayCollection();
     }
 
     public function __toString(): string
@@ -260,6 +264,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setIsVerified(bool $isVerified): self
     {
         $this->isVerified = $isVerified;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Log>
+     */
+    public function getLogs(): Collection
+    {
+        return $this->logs;
+    }
+
+    public function addLog(Log $log): self
+    {
+        if (!$this->logs->contains($log)) {
+            $this->logs[] = $log;
+            $log->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLog(Log $log): self
+    {
+        if ($this->logs->removeElement($log)) {
+            // set the owning side to null (unless already changed)
+            if ($log->getUser() === $this) {
+                $log->setUser(null);
+            }
+        }
 
         return $this;
     }

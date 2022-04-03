@@ -66,9 +66,13 @@ class TaskQueue
     #[Groups(['taskQueue:list', 'taskQueue:item'])]
     private $tasks;
 
+    #[ORM\OneToMany(mappedBy: 'oldQueue', targetEntity: Log::class)]
+    private $logs;
+
     public function __construct()
     {
         $this->tasks = new ArrayCollection();
+        $this->logs = new ArrayCollection();
     }
 
     public function __toString(): string
@@ -141,6 +145,36 @@ class TaskQueue
             // set the owning side to null (unless already changed)
             if ($task->getQueue() === $this) {
                 $task->setQueue(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Log>
+     */
+    public function getLogs(): Collection
+    {
+        return $this->logs;
+    }
+
+    public function addLog(Log $log): self
+    {
+        if (!$this->logs->contains($log)) {
+            $this->logs[] = $log;
+            $log->setOldQueue($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLog(Log $log): self
+    {
+        if ($this->logs->removeElement($log)) {
+            // set the owning side to null (unless already changed)
+            if ($log->getOldQueue() === $this) {
+                $log->setOldQueue(null);
             }
         }
 
