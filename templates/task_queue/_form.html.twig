@@ -1,4 +1,36 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+<div class="col-md-12 form-group has-feedback row">
+    <label class="control-label col-sm-3"><i class="fa fa-play"></i> Nazwa </label>
+    <div class="col-sm-9">
+        {{ form_widget(form.name, {'attr' : {'class': 'form-control'}}) }}
+        <small>{{ form_help(form.name) }}</small>
+
+        <div class="form-error">
+            {{ form_errors(form.name) }}
+        </div>
+    </div>
+</div>
+<div class="col-md-12 form-group has-feedback row">
+    <label class="control-label col-sm-3"><i class="fa fa-play"></i> Opis </label>
+    <div class="col-sm-9">
+        {{ form_widget(form.comment, {'attr' : {'class': 'form-control'}}) }}
+        <small>{{ form_help(form.comment) }}</small>
+
+        <div class="form-error">
+            {{ form_errors(form.comment) }}
+        </div>
+    </div>
+</div>
+<div class="col-md-12 form-group has-feedback row">
+    <label class="control-label col-sm-3"><i class="fa fa-play"></i> Priorytet </label>
+    <div class="col-sm-9">
+        {{ form_widget(form.priority, {'attr' : {'class': 'form-control'}}) }}
+        <small>{{ form_help(form.priority) }}</small>
+
+        <div class="form-error">
+            {{ form_errors(form.priority) }}
+        </div>
+    </div>
+</div>
+<button class="btn">{{ button_label|default('Dodaj') }}</button>
 {{ form_end(form) }}

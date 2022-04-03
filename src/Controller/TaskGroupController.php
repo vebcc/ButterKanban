@@ -16,8 +16,14 @@ class TaskGroupController extends AbstractController
     #[Route('/', name: 'app_task_group_index', methods: ['GET'])]
     public function index(TaskGroupRepository $taskGroupRepository): Response
     {
+        $taskGroup = new TaskGroup();
+        $form = $this->createForm(TaskGroupType::class, $taskGroup, array(
+            'action' => $this->generateUrl("app_task_group_new")
+        ));
+
         return $this->render('task_group/index.html.twig', [
             'task_groups' => $taskGroupRepository->findAll(),
+            'form' => $form->createView(),
         ]);
     }
 
@@ -59,6 +65,7 @@ class TaskGroupController extends AbstractController
         }
 
         return $this->renderForm('task_group/edit.html.twig', [
+            'task_groups' => $taskGroupRepository->findAll(),
             'task_group' => $taskGroup,
             'form' => $form,
         ]);

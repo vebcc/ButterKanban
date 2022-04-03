@@ -16,8 +16,14 @@ class TaskQueueController extends AbstractController
     #[Route('/', name: 'app_task_queue_index', methods: ['GET'])]
     public function index(TaskQueueRepository $taskQueueRepository): Response
     {
+        $taskQueue = new TaskQueue();
+        $form = $this->createForm(TaskQueueType::class, $taskQueue, array(
+            'action' => $this->generateUrl("app_task_queue_new")
+        ));
+
         return $this->render('task_queue/index.html.twig', [
             'task_queues' => $taskQueueRepository->findAll(),
+            'form' => $form->createView(),
         ]);
     }
 
@@ -59,6 +65,7 @@ class TaskQueueController extends AbstractController
         }
 
         return $this->renderForm('task_queue/edit.html.twig', [
+            'task_queues' => $taskQueueRepository->findAll(),
             'task_queue' => $taskQueue,
             'form' => $form,
         ]);

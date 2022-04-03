@@ -1,0 +1,38 @@
+<div class="col-md-7 row">
+    <div class="col-md-12">
+        <div class="col-md-12">
+            <h3>Lista</h3>
+        </div>
+        <div class="col-md-12">
+            <table id="tabledynamic" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Nazwa</th>
+                    <th scope="col">Komentarz</th>
+                    <th scope="col">Priorytet</th>
+                    <th scope="col">Edytuj</th>
+                    <th scope="col">Usuń</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for queue in task_queues %}
+                    <tr>
+                        <th scope="row">{{ queue.id }}</th>
+                        <td>{{ queue.name }}</td>
+                        <td>{{ queue.comment }}</td>
+                        <td>{{ queue.priority }}</td>
+                        <td><a  class="btn btn-primary dropdown-toggle px-3 btn-sm" href="{{ path('app_task_queue_edit', {'id': queue.id}) }}">Edytuj</a></td>
+                        <td><a  class="btn btn-primary dropdown-toggle px-3 btn-sm" href="{{ path('app_task_queue_delete', {'id': queue.id}) }}">Usuń</a></td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="6">Brak Kolejek</td>
+                    </tr>
+                {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
