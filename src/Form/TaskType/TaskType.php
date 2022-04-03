@@ -5,6 +5,7 @@ namespace App\Form\TaskType;
 use App\Entity\Task;
 use App\Services\TaskQueue\TaskQueueToIdTransformer;
 use App\Services\TaskQueue\TaskQueueProvider;
+use phpDocumentor\Reflection\Types\String_;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
@@ -28,6 +29,7 @@ class TaskType extends AbstractType
             ->add('queue', HiddenType::class, [
                 'label' => false,
                 'data' => $this->taskQueue,
+                'data_class' => null,
             ])
         ;
 

@@ -22,15 +22,17 @@ class TaskQueueToIdTransformer implements DataTransformerInterface
 
     public function transform($value): ?String
     {
+        dump($value);
         if ($value === null) {
             return null;
         }
 
-        return (string)$value;
+        return (string)$value->getId();
     }
 
-    public function reverseTransform($value): ?ArrayCollection
+    public function reverseTransform($value): ?TaskQueue
     {
+        dump($value);
         if (!$value) {
             return null;
         }
@@ -38,7 +40,7 @@ class TaskQueueToIdTransformer implements DataTransformerInterface
 
             if ($taskQueue === null) {
                 throw new TransformationFailedException(sprintf(
-                    'Task z id "%s" nie istnieje!',
+                    'TaskQueue z id "%s" nie istnieje!',
                     $value
                 ));
             }
