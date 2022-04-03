@@ -37,7 +37,7 @@ class Log
 
     public function __construct()
     {
-        $this->startData = new \DateTime();
+        $this->dateTime = new \DateTime();
     }
 
     public function getId(): ?int
