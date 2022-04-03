@@ -1,0 +1,122 @@
+{% import _self as formMacros %}
+
+{% macro printTaskUsersRow(taskUsersRow, withName = 1) %}
+    <tr class="cocktail-ingredients-item">
+        <td>{{ withName ? form_label(taskUsersRow) : '__name__' }}</td>
+        <td class="add_item_link">{{ form_widget(taskUsersRow.user, {'attr' : {'class': 'form-control'}}) }}</td>
+        <td>{{ form_widget(taskUsersRow.taskUserType, {'attr' : {'class': 'form-control'}}) }}</td>
+        <td><button type="button" class="btn cocktail-ingredients-remove">Usuń</button></td>
+    </tr>
+
+
+{% endmacro %}
+
+{{ form_start(form) }}
+<div class="col-md-12 form-group has-feedback row">
+    <label class="control-label col-sm-3"><i class="fa fa-play"></i> Tytuł </label>
+    <div class="col-sm-9">
+        {{ form_widget(form.tittle, {'attr' : {'class': 'form-control'}}) }}
+        <small>{{ form_help(form.tittle) }}</small>
+
+        <div class="form-error">
+            {{ form_errors(form.tittle) }}
+        </div>
+    </div>
+</div>
+<div class="col-md-12 form-group has-feedback row">
+    <label class="control-label col-sm-3"><i class="fa fa-play"></i> Opis </label>
+    <div class="col-sm-9">
+        {{ form_widget(form.comment, {'attr' : {'class': 'form-control'}}) }}
+        <small>{{ form_help(form.comment) }}</small>
+
+        <div class="form-error">
+            {{ form_errors(form.comment) }}
+        </div>
+    </div>
+</div>
+<div class="col-md-12 form-group has-feedback row">
+    <label class="control-label col-sm-3"><i class="fa fa-play"></i> Grupa </label>
+    <div class="col-sm-9">
+        {{ form_widget(form.taskGroup, {'attr' : {'class': 'form-control'}}) }}
+        <small>{{ form_help(form.taskGroup) }}</small>
+
+        <div class="form-error">
+            {{ form_errors(form.taskGroup) }}
+        </div>
+    </div>
+</div>
+<div class="col-md-12 form-group has-feedback row">
+    <label class="control-label col-sm-3"><i class="fa fa-play"></i> Kolejka </label>
+    <div class="col-sm-9">
+        {{ form_widget(form.queue, {'attr' : {'class': 'form-control'}}) }}
+        <small>{{ form_help(form.queue) }}</small>
+
+        <div class="form-error">
+            {{ form_errors(form.queue) }}
+        </div>
+    </div>
+</div>
+<div class="col-md-12 form-group has-feedback row">
+    <label class="control-label col-sm-3"><i class="fa fa-play"></i> Data dodania </label>
+    <div class="col-sm-9 row">
+        <div class="col-md-12 row">
+            <div class="col">Data: </div>
+        <div class="col">
+            {{ form_widget(form.startData.date.day, {'attr' : {'class': 'form-control'}}) }}
+        </div>
+        <div class="col">
+            {{ form_widget(form.startData.date.month, {'attr' : {'class': 'form-control'}}) }}
+        </div>
+        <div class="col">
+            {{ form_widget(form.startData.date.year, {'attr' : {'class': 'form-control'}}) }}
+        </div>
+
+        </div>
+        <div class="col-md-12 row">
+            <div class="col">Godzina:</div>
+            <div class="col">
+                {{ form_widget(form.startData.time.hour, {'attr' : {'class': 'form-control'}}) }}
+            </div>
+            <div class="col">
+                {{ form_widget(form.startData.time.minute, {'attr' : {'class': 'form-control'}}) }}
+            </div>
+            <div class="col"></div>
+        </div>
+
+        <small>{{ form_help(form.startData) }}</small>
+
+        <div class="form-error">
+            {{ form_errors(form.startData) }}
+        </div>
+    </div>
+</div>
+
+<div class="col-md-12">
+    <h3>Użytkownicy</h3>
+</div>
+<div class="col-md-12">
+    <table class="table table-striped table-sm">
+        <thead>
+        <tr>
+            <th scope="col">Nr</th>
+            <th scope="col">Użytkownik</th>
+            <th scope="col">Grupa</th>
+            <th scope="col">Usuń</th>
+        </tr>
+        </thead>
+
+        {% set taskUserPrototype = formMacros.printTaskUsersRow(form.taskUsers.vars.prototype,0) %}
+        <tbody  class="cocktail-ingredients" data-prototype="{{ taskUserPrototype|e('html_attr') }}" data-index="{{ form.taskUsers|length }}">
+        {% for taskUserForm in form.taskUsers %}
+            {{ formMacros.printTaskUsersRow(taskUserForm) }}
+        {% else %}
+            {{ taskUserPrototype }}
+        {% endfor %}
+        <tr class="cocktail-ingredients-add">
+            <td colspan="6"><button type="button" class="btn">Dodaj użytkownika</button></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<button class="btn">{{ button_label|default('Aktualizuj') }}</button>
+{{ form_end(form) }}
