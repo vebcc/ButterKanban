@@ -32,6 +32,14 @@ class Log
     #[ORM\ManyToOne(targetEntity: TaskQueue::class, inversedBy: 'logs')]
     private $oldQueue;
 
+    #[ORM\Column(type: 'datetime')]
+    private $dateTime;
+
+    public function __construct()
+    {
+        $this->startData = new \DateTime();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -93,6 +101,18 @@ class Log
     public function setOldQueue(?TaskQueue $oldQueue): self
     {
         $this->oldQueue = $oldQueue;
+
+        return $this;
+    }
+
+    public function getDateTime(): ?\DateTimeInterface
+    {
+        return $this->dateTime;
+    }
+
+    public function setDateTime(\DateTimeInterface $dateTime): self
+    {
+        $this->dateTime = $dateTime;
 
         return $this;
     }
