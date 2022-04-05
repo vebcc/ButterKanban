@@ -1,4 +1,54 @@
 $(function () {
+
+    let superLogQuery = `query {
+          logs(last: 3){
+            edges{
+              node{
+                id
+                dateTime
+                value
+                task{
+                  id
+                  tittle
+                }
+                user{
+                  id
+                  name
+                  email
+                }
+                comment{
+                  id
+                  comment
+                }
+                oldQueue{
+                  id
+                  name
+                }
+              }
+            }
+          }
+        }`;
+
+    let superCommentQuery = `query {
+          taskComments(last: 3){
+            edges{
+              node{
+                id
+                date
+                task{
+                  id
+                  tittle
+                }
+                user{
+                  id
+                  name
+                  email
+                }
+              }
+            }
+          }
+        }`;
+
     $("div.droptrue").sortable({
         connectWith: ".task-list",
     });
@@ -28,17 +78,81 @@ $(function () {
         }
     }
 
-    function sendAjaxRequest(method, url, data, contentType) {
+    function sendAjaxRequest(method, url, data, contentType, requestId) {
         $.ajax({
             method: method,
             url: url,
             data: data,
             dataType: 'json',
             contentType: contentType,
-            success: function(msg) {
-                console.log(msg);
+            success: function(response) {
+                responseController(response, requestId);
             }
         });
     }
 
+    function responseController(response, requestId = 0){
+        switch(requestId){
+            case 0:
+                data = parseToSend(superLogQuery);
+                sendAjaxRequest("POST", "/api/graphql", data, 'application/json', 1);
+                data = parseToSend(superCommentQuery);
+                sendAjaxRequest("POST", "/api/graphql", data, 'application/json', 2);
+                break;
+            case 1:
+                writeLogs(response);
+                break;
+            case 2:
+                writeComments(response);
+                break;
+        }
+    }
+
+    function parseToSend(data){
+        return JSON.stringify({
+            query: data,
+        });
+    }
+
+    function writeLogs(data){
+        console.log(data);
+        data['data']['logs']['edges'].forEach(writeLog)
+    }
+
+    function writeComments(data){
+        console.log(data);
+        data['data']['taskComments']['edges'].forEach(writeComment)
+    }
+
+    function writeLog(item, key){
+        console.log(key);
+        switch(item['node']['value']){
+            case 'queueUpdate':
+                if(key === 2) {
+                    $("#historyLogInfoPrefix").html("Aktualizacja");
+                }
+                $("#historytypetextlist-"+(key+1)).html("Aktualizacja");
+                break;
+            default:
+
+                break;
+        }
+
+        if(key === 2){
+            $("#historyDate").html(item['node']['dateTime']);
+            $("#historyLogInfo").html(item['node']['task']['tittle']);
+        }
+
+        $("#historynametime-"+(key+1)).html(item['node']['dateTime']);
+        $("#historynamelist-"+(key+1)).html(item['node']['task']['tittle']);
+        console.log("#historynamelist-"+(key+1));
+    }
+
+    function writeComment(item){
+        $("#historyCommentInfoPrefixInfoPrefix").html(item['node']['user']['name']);
+        $("#historyCommentDate").html(item['node']['dateTime']);
+        $("#historyCommentName").html(item['node']['task']['tittle']);
+    }
+
+    responseController('Fajnie jest');
 });

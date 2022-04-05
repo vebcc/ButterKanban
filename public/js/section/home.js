@@ -19,7 +19,11 @@ $(document).ready(function () {
                     name
                 }
                 taskComments{
-                    comment
+                    edges{
+                      node{
+                        comment
+                      }
+                    }
                 }
             }
         }`;
@@ -83,5 +87,4 @@ $(document).ready(function () {
     }
 });
 
-//TODO: Obciecie ilosci znakow na stronie glownej z lista taskow
 //TODO: kolorowanie grup

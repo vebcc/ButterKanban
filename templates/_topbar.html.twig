@@ -5,14 +5,14 @@
         <i class="fa fa-bars"></i>
     </button>
 
-   {# {% set logs = getAllTypeLogs() %}#}
+    {#{% set logs = getLatestLogs() %}#}
 
-    <a class="dropdown-item d-flex align-items-center" id="one-ingredient-div" href="/container/update">
-        {#{{ include('log/ingredient/_oneIngredientLog.html.twig') }}#}
+    <a class="dropdown-item d-flex align-items-center" id="one-ingredient-div" href="/">
+        {{ include('log/_oneLog.html.twig') }}
     </a>
 
-    <a class="dropdown-item d-flex align-items-center" id="one-cocktail-div" href="/container/update">
-        {#{{ include('log/cocktail/_oneCocktailLog.html.twig') }}#}
+    <a class="dropdown-item d-flex align-items-center" id="one-cocktail-div" href="/">
+        {{ include('task_comment/_oneComment.html.twig') }}
     </a>
 
     <ul class="navbar-nav ml-auto">
@@ -44,14 +44,14 @@
             <!-- Dropdown - Alerts -->
             <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
                 <h6 class="dropdown-header">
-                    Historia drinków
+                    Historia
                 </h6>
 
                 <div id="list-cocktails-div">
-                   {# {{ include('log/cocktail/_dropdownCocktailLogList.html.twig') }}#}
+                    {{ include('log/_dropdownLogList.html.twig') }}
                 </div>
 
-                <a class="dropdown-item text-center small text-gray-500" href="#">Pokaż historię drinków</a>
+                <a class="dropdown-item text-center small text-gray-500" href="#">Pokaż historię</a>
             </div>
         </li>
 
@@ -62,14 +62,14 @@
             </a>
             <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="messagesDropdown">
                 <h6 class="dropdown-header">
-                    Powiadomienia
+                    Komentarze
                 </h6>
 
                 <div id="list-ingredients-div">
                 {#    {{ include('log/ingredient/_dropdownIngredientLogList.html.twig') }}#}
                 </div>
 
-                <a class="dropdown-item text-center small text-gray-500" href="#">Pełna lista powiadomień</a>
+                <a class="dropdown-item text-center small text-gray-500" href="#">Pełna lista komentarzy</a>
             </div>
         </li>
 

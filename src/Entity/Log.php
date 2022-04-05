@@ -7,7 +7,38 @@ use App\Repository\LogRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: LogRepository::class)]
-#[ApiResource]
+#[ApiResource(
+    collectionOperations: [
+        'get' => [
+            'access_control' =>"is_granted('ROLE_USER')" ,
+            'normalization_context' => ['groups' => 'log:list'],
+            "access_control_message" => "You do not have the permission to get"
+        ],
+        'post' => [
+            'access_control' =>"is_granted('ROLE_USER')" ,
+            'normalization_context' => ['groups' => 'log:list'],
+            "access_control_message" => "You do not have the permission to post"
+        ]
+    ],
+    itemOperations: [
+        'get' => [
+            'access_control' =>"is_granted('ROLE_USER')" ,
+            'normalization_context' => ['groups' => 'log:item'],
+            "access_control_message" => "You do not have the permission to get"
+        ],
+        'patch' => [
+            'access_control' =>"is_granted('ROLE_USER')" ,
+            'normalization_context' => ['groups' => 'log:item'],
+            "access_control_message" => "You do not have the permission to patch"
+        ],
+        'delete' => [
+            'access_control' =>"is_granted('ROLE_USER')" ,
+            'normalization_context' => ['groups' => 'log:item'],
+            "access_control_message" => "You do not have the permission to delete"
+        ]
+    ],
+    order: ['dateTime' => 'ASC'],
+)]
 class Log
 {
     #[ORM\Id]

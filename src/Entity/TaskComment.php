@@ -40,7 +40,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
             "access_control_message" => "You do not have the permission to delete"
         ]
     ],
-    paginationEnabled: false,
+    order: ['date' => 'ASC'],
 )]
 class TaskComment
 {
