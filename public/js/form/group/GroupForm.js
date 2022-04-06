@@ -35,6 +35,7 @@ $(function () {
               node{
                 id
                 date
+                comment
                 task{
                   id
                   tittle
@@ -129,9 +130,9 @@ $(function () {
         switch(item['node']['value']){
             case 'queueUpdate':
                 if(key === 2) {
-                    $("#historyLogInfoPrefix").html("Aktualizacja");
+                    $("#historyLogInfoPrefix").html("Aktualizacja: ");
                 }
-                $("#historytypetextlist-"+(key+1)).html("Aktualizacja");
+                $("#historytypetextlist-"+(key+1)).html("Aktualizacja: ");
                 break;
             default:
 
@@ -139,7 +140,7 @@ $(function () {
         }
 
         if(key === 2){
-            $("#historyDate").html(item['node']['dateTime']);
+            $("#historyDate").html(parseDate(item['node']['dateTime']));
             $("#historyLogInfo").html(item['node']['task']['tittle']);
         }
 
@@ -148,10 +149,21 @@ $(function () {
         console.log("#historynamelist-"+(key+1));
     }
 
-    function writeComment(item){
-        $("#historyCommentInfoPrefixInfoPrefix").html(item['node']['user']['name']);
-        $("#historyCommentDate").html(item['node']['dateTime']);
-        $("#historyCommentName").html(item['node']['task']['tittle']);
+    function writeComment(item, key){
+        if(key === 2){
+            $("#historyCommentUser").html(item['node']['user']['name']);
+            $("#historyCommentDate").html(parseDate(item['node']['date']));
+            $("#historyCommentName").html(item['node']['task']['tittle']+': '+ item['node']['comment']);
+        }
+        $("#commentnameuser-"+(key+1)).html(item['node']['user']['name']);
+        $("#commentnametime-"+(key+1)).html(parseDate(item['node']['date']));
+        $("#commentnamelist-"+(key+1)).html(item['node']['task']['tittle']+': '+ item['node']['comment']);
+    }
+
+    function parseDate(dateString){
+        let date = new Date(dateString)
+        let month = ["Styczeń", "Luty", "Marzec", "Kwiecień", "Maj", "Pazdziernik", "Listopad", "Grudzień"];
+        return date.getDate() + " " + month[date.getMonth()] + " " + date.getFullYear();
     }
 
     responseController('Fajnie jest');
