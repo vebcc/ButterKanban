@@ -49,6 +49,10 @@ bottom: .5em;
     }
 }
 
+.margin-center{
+    margin: auto;
+}
+
 .nomargin{
     margin-top: 0px;
     margin-bottom: 0px;

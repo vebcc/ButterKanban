@@ -22,6 +22,11 @@ $(document).ready(function () {
                     edges{
                       node{
                         comment
+                        date
+                        user{
+                          name
+                          email
+                        }
                       }
                     }
                 }
@@ -34,6 +39,15 @@ $(document).ready(function () {
         let id = $(this).data("id");
         data = parseToSend(superQuery, id, "/api/tasks/")
         sendAjaxRequest("POST", "/api/graphql", data, 'application/json', modal);
+    });
+
+    $(".show-comment").click(function () {
+        $('.task-comments').show();
+        $('.task-front').hide();
+    });
+    $(".hide-comment").click(function () {
+        $('.task-comments').hide();
+        $('.task-front').show();
     });
 
     function sendAjaxRequest(method, url, data, contentType, modal) {
@@ -56,7 +70,18 @@ $(document).ready(function () {
 
         modal.find(".taskDate").html(parseDate(data["data"]["task"]["startData"]));
 
-        data["data"]["task"]["taskUsers"].forEach(findUsers)
+        data["data"]["task"]["taskUsers"].forEach(findUsers);
+
+        let comments = data["data"]["task"]["taskComments"]["edges"];
+        $(".comment-one-row").remove();
+        if(comments.length){
+            $(".hidden-example-comment").show();
+            data["data"]["task"]["taskComments"]["edges"].forEach(putComments);
+        }else{
+            $(".hidden-example-comment").hide();
+        }
+
+
     }
 
 
@@ -77,6 +102,25 @@ $(document).ready(function () {
             case "Weryfikator":
                 mainModal.find(".zglaszajacy").html(item["user"]["name"]);
                 break;
+        }
+    }
+
+    function putComments(item, key){
+        console.log(item);
+        let exampleComment = $(".hidden-example-comment");
+        if(key === 0){
+            console.log(exampleComment);
+            exampleComment.find(".comment-name-time").html(parseDate(item["node"]["date"]));
+            exampleComment.find(".comment-user-name").html(item["node"]["user"]["name"]);
+            exampleComment.find(".comment-name-list").html(item["node"]["comment"]);
+        }else{
+            let cloneComment = exampleComment.clone();
+            cloneComment.find(".comment-name-time").html(parseDate(item["node"]["date"]));
+            cloneComment.find(".comment-user-name").html(item["node"]["user"]["name"]);
+            cloneComment.find(".comment-name-list").html(item["node"]["comment"]);
+            cloneComment.removeClass("hidden-example-comment").addClass("comment-one-row");
+
+            exampleComment.after(cloneComment);
         }
     }
 

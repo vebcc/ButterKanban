@@ -67,7 +67,7 @@
                                         <i class="fas text-gray-300 fa-4x mb-3 animated rotateIn"></i>
                                         <p class="h4 mb-4 taskName"></p>
                                         <hr>
-                                        <div class="row">
+                                        <div class="row task-front">
                                             <div class="col-md-12 row taskValue">
                                                 <div class="col-md-4 text-left"><i class="fas fa-comment-alt"></i><span>Opis</span></div>
                                                 <div class="col-md-8 card-header rounded bg-light taskComment"></div>
@@ -87,6 +87,39 @@
                                             <div class="col-md-12 row taskValue">
                                                 <div class="col-md-4 text-left"><i class="fas fa-user-edit"></i>Zgłaszający</div>
                                                 <div class="col-md-8 card-header rounded zglaszajacy"></div>
+                                            </div>
+                                            <div class="col-md-12 row taskValue">
+                                                <div class="col-md-4 text-left"><i class="fas fa-user-edit"></i>Komentarze</div>
+                                                <button class="show-comment btn-info col-md-8 card-header rounded">Pokaż komentarze</button>
+                                            </div>
+                                        </div>
+                                        <div class="row task-comments" style="display:none">
+                                            <div class="col-md-12 row taskValue">
+                                                <div class="col-md-4 text-left"><i class="fas fa-user-edit"></i>Komentarze</div>
+                                                <button class="hide-comment btn-info col-md-8 card-header rounded">Ukryj komentarze</button>
+                                            </div>
+                                            <div class="col-md-12 row d-flex align-items-center">
+
+                                                <div class="hidden-example-comment comment-1 col-md-12">
+                                                    <div class="mr-3 col-md-2 row d-flex justify-content-centerr">
+                                                        <div id="historytypelist-1" class="icon-circle bg-success margin-center">
+                                                            <i class="fas fa-file-alt text-white margin-center"></i>
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <span class="comment-user-name"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div>
+                                                        <div class="small text-gray-500">
+                                                            <span class="comment-name-time"></span>
+                                                        </div>
+                                                        <span class="font-weight-bold">
+                                                            <span class="comment-type-text-list"></span>
+                                                            <span  class="comment-name-list"></span>
+                                                        </span>
+                                                    </div>
+                                                </div>
+
                                             </div>
                                         </div>
                                     </div>
