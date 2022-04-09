@@ -144,7 +144,7 @@ $(function () {
             $("#historyLogInfo").html(item['node']['task']['tittle']);
         }
 
-        $("#historynametime-"+(key+1)).html(item['node']['dateTime']);
+        $("#historynametime-"+(key+1)).html(parseDate(item['node']['dateTime']));
         $("#historynamelist-"+(key+1)).html(item['node']['task']['tittle']);
         console.log("#historynamelist-"+(key+1));
     }
