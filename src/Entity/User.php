@@ -89,12 +89,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Log::class, orphanRemoval: true)]
     private $logs;
 
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: ApiToken::class, orphanRemoval: true)]
+    private $apiTokens;
+
     public function __construct()
     {
         $this->taskUsers = new ArrayCollection();
         $this->taskComments = new ArrayCollection();
         $this->creationDate = new \DateTime();
         $this->logs = new ArrayCollection();
+        $this->apiTokens = new ArrayCollection();
     }
 
     public function __toString(): string
@@ -292,6 +296,41 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($log->getUser() === $this) {
                 $log->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ApiToken>
+     */
+    public function getApiTokens(): Collection
+    {
+        return $this->apiTokens;
+    }
+
+    public function getLastApiToken(): ApiToken
+    {
+        return $this->apiTokens[0];
+    }
+
+    public function addApiToken(ApiToken $apiToken): self
+    {
+        if (!$this->apiTokens->contains($apiToken)) {
+            $this->apiTokens[] = $apiToken;
+            $apiToken->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeApiToken(ApiToken $apiToken): self
+    {
+        if ($this->apiTokens->removeElement($apiToken)) {
+            // set the owning side to null (unless already changed)
+            if ($apiToken->getUser() === $this) {
+                $apiToken->setUser(null);
             }
         }
 

@@ -18,6 +18,8 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
+            custom_authenticators:
+                - App\Security\ApiKeyAuthenticator
             lazy: true
             provider: app_user_provider
             form_login:
@@ -46,10 +48,12 @@ security:
         - { path: ^/user, roles: ROLE_ADMIN }
         - { path: ^/, roles: ROLE_USER }
         - { path: ^/task, roles: ROLE_USER }
+        - { path: ^/api, roles: ROLE_API }
 
 
     role_hierarchy:
         ROLE_ADMIN: ROLE_USER
+        ROLE_API: ROLE_ADMIN
 
 
 when@test:

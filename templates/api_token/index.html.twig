@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ApiToken index{% endblock %}
+
+{% block body %}
+    <h1>ApiToken index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Token</th>
+                <th>ExpirationDate</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for api_token in api_tokens %}
+            <tr>
+                <td>{{ api_token.id }}</td>
+                <td>{{ api_token.token }}</td>
+                <td>{{ api_token.expirationDate ? api_token.expirationDate|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_api_token_show', {'id': api_token.id}) }}">show</a>
+                    <a href="{{ path('app_api_token_edit', {'id': api_token.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_api_token_new') }}">Create new</a>
+{% endblock %}
