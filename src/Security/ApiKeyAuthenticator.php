@@ -40,14 +40,18 @@ class ApiKeyAuthenticator extends AbstractAuthenticator
     public function authenticate(Request $request): Passport
     {
         $apiToken = $request->headers->get('X-AUTH-TOKEN');
-        if (null === $apiToken) {
+        if (null == $apiToken) {
             // The token header was empty, authentication fails with HTTP Status
             // Code 401 "Unauthorized"
             throw new CustomUserMessageAuthenticationException('No API token provided');
         }
 
         /*return new SelfValidatingPassport(new UserBadge($apiToken));*/
-        $email = $this->apiTokenRepository->findOneBy(['token' => $apiToken])->getUser()->getEmail();
+        $token = $this->apiTokenRepository->findOneBy(['token' => $apiToken]);
+        if(!$token){
+            throw new CustomUserMessageAuthenticationException('Invalid Token provided');
+        }
+        $email = $token->getUser()->getEmail();
 
 
 
